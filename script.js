@@ -36,4 +36,47 @@ function displayWord() {
     }
 }
 
+// Update the wrong letters
+function updateWrongLetters() {
+    console.log('Update wrong');
+}
+
+// Show notification
+function showNotification() {
+    notification.classList.add('show');
+
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 2000);
+}
+
+// Keydown letter press
+window.addEventListener('keydown', e => { // on key press
+    //console.log(e.keyCode);
+    if (e.keyCode >= 65 && e.keyCode <= 90) { // if the key pressed is a letter
+        const letter = e.key; // set letter to key that was pressed
+
+        if (selectedWord.includes(letter)) {
+            if (!correctLetters.includes(letter)) {
+                correctLetters.push(letter);
+
+                displayWord();
+            }
+            else {
+                showNotification();
+            }
+        }
+        else {
+            if (!wrongLetters.includes(letter)) {
+                wrongLetters.push(letter)
+    
+                updateWrongLetters();
+            }
+            else {
+                showNotification();
+            }
+        }
+    }
+});
+
 displayWord();
