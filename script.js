@@ -1,5 +1,5 @@
 const wordElement = document.getElementById('word');
-const wrontLettersElement = document.getAnimations('wrong-letters');
+const wrongLettersElement = document.getElementById('wrong-letters');
 const playAgainBtn = document.getElementById('play-again')
 const popup = document.getElementById('popup-container');
 const notification = document.getElementById('notification-container');
@@ -38,7 +38,10 @@ function displayWord() {
 
 // Update the wrong letters
 function updateWrongLetters() {
-    console.log('Update wrong');
+    wrongLettersElement.innerHTML = `
+    ${wrongLetters.length > 0 ? '<p>Wrong</p>' : ''}
+    ${wrongLetters.map(letter => `<span>${letter}</span`)}
+    `;
 }
 
 // Show notification
