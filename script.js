@@ -1,6 +1,6 @@
 const wordElement = document.getElementById('word');
 const wrongLettersElement = document.getElementById('wrong-letters');
-const playAgainBtn = document.getElementById('play-again')
+const playAgainBtn = document.getElementById('play-button')
 const popup = document.getElementById('popup-container');
 const notification = document.getElementById('notification-container');
 const finalMsg = document.getElementById('final-message');
@@ -100,5 +100,21 @@ window.addEventListener('keydown', e => { // on key press
         }
     }
 });
+
+// Restart game and play again
+playAgainBtn.addEventListener('click', () => {
+    // Empty arrays
+    correctLetters.splice(0);
+    wrongLetters.splice(0)
+
+    selectedWord = words[Math.floor(Math.random() * words.length)];
+
+    displayWord();
+
+    updateWrongLetters();
+
+    popup.style.display = 'none';
+});
+
 
 displayWord();
