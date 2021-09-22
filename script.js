@@ -7,17 +7,26 @@ const finalMsg = document.getElementById('final-message');
 
 const figureParts = document.querySelectorAll('.figure-part');
 
-const words = ['application', 'programming', 'interface', 'wizard']; // random words
-
-let selectedWord = words[Math.floor(Math.random() * words.length)];
+let selectedWord = '';
 
 const correctLetters = [];
 const wrongLetters = [];
 
+// Fetch array of 10 random words from API and select randomly from array
+function fetchRandomWord() {
+    fetch('https://random-word-form.herokuapp.com/random/noun?count=10')
+    .then(resp => resp.json())
+    .then(data => {
+        selectedWord = data[0];
+        displayWord();
+    });
+    
+}
+
 // Show hidden word
 function displayWord() {
-    wordElement.innerHTML = `
-    ${selectedWord
+    wordElement.innerHTML =
+    `${selectedWord
         .split('') // convert string to array
         .map(
             letter => `
@@ -58,7 +67,7 @@ function updateWrongLetters() {
 
     // Check if lost
     if (wrongLetters.length === figureParts.length) {
-        finalMsg.innerText = 'You lost.';
+        finalMsg.innerText = `You lost. The word was ${selectedWord}`;
         popup.style.display = 'flex';
     }
 }
@@ -107,14 +116,11 @@ playAgainBtn.addEventListener('click', () => {
     correctLetters.splice(0);
     wrongLetters.splice(0)
 
-    selectedWord = words[Math.floor(Math.random() * words.length)];
-
-    displayWord();
+    fetchRandomWord();
 
     updateWrongLetters();
 
     popup.style.display = 'none';
 });
 
-
-displayWord();
+fetchRandomWord();
